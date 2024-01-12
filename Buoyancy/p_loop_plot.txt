@@ -1,0 +1,22 @@
+#CODE USED FOR OBTAIN THE VARIOUS plotOverLine
+import numpy as np 
+
+# find source
+farfieldfoam = FindSource('farfield.foam')
+
+# create a new 'Plot Over Line'
+plotOverLine1 = PlotOverLine(registrationName='PlotOverLine1', Input=farfieldfoam)
+
+passArrays1 = PassArrays(registrationName='PassArrays1', Input=plotOverLine1)
+passArrays1.PointDataArrays = ['p']
+
+for i in np.arange(0.0, -0.225, -0.01):
+    i = round(i, 3)
+    for j in np.arange(0.0, 1.6, 0.05):
+        j = round(j, 3)
+        plotOverLine1.Point1 = [5.5, i, j]
+        plotOverLine1.Point2 = [-9.5, i, j]
+        SaveData('C:/Users/Luigi/Documents/Luigi/Università/Polimi/Secondo Anno/Aero of TV/Buoyancy/plot_p_w_{0}_{1}.csv'.format(i, j), proxy=passArrays1, PointDataArrays=['p'])
+
+
+
